@@ -9,7 +9,43 @@ class TTTBoard:
         board - a list of '*'s, 'X's & 'O's. 'X's represent moves by player 'X', 'O's
             represent moves by player 'O' and '*'s are spots no one has yet played on
     """
+    def __init__(self) -> None:
+        self.board = ['*'] * 9
 
+    def __str__(self) -> str:
+        s = ""
+        for x in [0, 3, 6]:
+            s += self.board[x + 0] + " " + self.board[x + 1] + " " + self.board[x + 2] + "\n"
+        return s
+    
+    def make_move(self, player, pos) -> bool:
+        if pos < 0 or pos > 8 or self.board[pos] != '*':
+            return False
+    
+        self.board[pos] = player
+        return True
+    
+    def has_won(self, player) -> bool:
+        if self.board[0] == player and self.board[1] == player and self.board[2] == player:
+            return True
+        if self.board[3] == player and self.board[4] == player and self.board[5] == player:
+            return True
+        if self.board[6] == player and self.board[7] == player and self.board[8] == player:
+            return True
+        
+        if self.board[0] == player and self.board[3] == player and self.board[6] == player:
+            return True
+        if self.board[1] == player and self.board[4] == player and self.board[7] == player:
+            return True
+        if self.board[2] == player and self.board[5] == player and self.board[8] == player:
+            return True
+        
+        if self.board[0] == player and self.board[4] == player and self.board[8] == player:
+            return True
+        if self.board[2] == player and self.board[4] == player and self.board[6] == player:
+            return True
+        
+        return False
     pass
 
 
@@ -61,8 +97,13 @@ if __name__ == "__main__":
     # need to write some more tests to make sure that your TTTBoard class is behaving
     # properly.
     brd = TTTBoard()
+    print(brd)
     brd.make_move("X", 8)
+    brd.make_move("X", 2)
+    brd.make_move("X", 5)
     brd.make_move("O", 7)
+    print(brd)
+    print(brd.has_won("X"))
 
     assert brd.game_over() == False
 
