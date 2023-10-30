@@ -46,7 +46,15 @@ class TTTBoard:
             return True
         
         return False
-    pass
+    
+
+    def game_over(self) -> bool:
+        if "*" not in self.board or self.has_won("X") or self.has_won("O"):
+            return True
+        return False
+    
+    def clear(self) -> None:
+        self.board = ['x'] * 9
 
 
 def play_tic_tac_toe() -> None:
@@ -130,4 +138,4 @@ if __name__ == "__main__":
     print("All tests passed!")
 
     # uncomment to play!
-    # play_tic_tac_toe()
+    play_tic_tac_toe()
